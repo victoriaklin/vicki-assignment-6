@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Regression Assumptions</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Main Container */
+        .container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Header */
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #4a90e2;
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            text-align: left;
+            color: #333;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4a90e2;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #357abd;
+        }
+
+        /* Result Section */
+        .results {
+            margin-top: 20px;
+        }
+
+        .results h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .results img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .results p {
+            font-size: 16px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Interactive Linear Regression Assumptions</h1>
+
+        <form method="POST">
+            <label for="N">Sample Size (N):</label>
+            <input type="number" id="N" name="N" required>
+
+            <label for="mu">Mean (μ):</label>
+            <input type="number" step="any" id="mu" name="mu" required>
+
+            <label for="sigma2">Variance (σ²):</label>
+            <input type="number" step="any" id="sigma2" name="sigma2" required>
+
+            <label for="S">Number of Simulations (S):</label>
+            <input type="number" id="S" name="S" required>
+
+            <button type="submit">Generate</button>
+        </form>
+
+        {% if plot1 and plot2 %}
+            <div class="results">
+                <h2>Generated Plot</h2>
+                <img src="{{ plot1 }}" alt="Regression Plot">
+
+                <h2>Histogram of Slopes and Intercepts</h2>
+                <img src="{{ plot2 }}" alt="Histograms">
+
+                <p>Proportion of slopes more extreme than calculated slope: {{ slope_extreme | round(2) }}%</p>
+                <p>Proportion of intercepts more extreme than calculated intercept: {{ intercept_extreme | round(2) }}%</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
